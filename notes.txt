@@ -1,0 +1,1 @@
+docker compose run --rm dbt run --project-dir my_dbt_project --profiles-dir dbt_project/.dbt
