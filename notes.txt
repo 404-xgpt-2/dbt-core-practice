@@ -1,1 +1,11 @@
 docker compose run --rm dbt run --project-dir my_dbt_project --profiles-dir dbt_project/.dbt
+
+Always include your path flags: Since your project (my_dbt_project) and your profiles (dbt_project/.dbt) live in separate directories, every time you run a dbt command (like run, test, seed, or debug), you will need to append both flags:
+
+Bash
+docker compose run --rm dbt <command> --project-dir my_dbt_project --profiles-dir dbt_project/.dbt
+Watch out for file permissions: If you or Docker create new folders/files and you run into EACCES: permission denied errors in VS Code again, run sudo chown -R $USER:$USER my_dbt_project to restore your ownership.
+
+Leverage dbt tests: Take advantage of the tests/ folder and schema YAML files to validate data quality (checking for uniqueness, null values, or custom relationships) as you build out new models.
+
+Keep your containers running smoothly: Your PostgreSQL database container needs to be up whenever you run dbt commands. If Docker tells you the container is stopped, run docker compose up -d before executing your dbt workflow.
